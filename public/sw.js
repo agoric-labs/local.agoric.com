@@ -1,4 +1,4 @@
-const filesToCache = ['index.html', '404.html', 'favicon-full.ico'];
+const filesToCache = ['./', 'index.html', '404.html', 'favicon-full.ico'];
 const staticCacheName = 'local-cache-v1';
 self.addEventListener('install', event => {
   console.log('Installing service worker and adding files to cache');
@@ -9,8 +9,7 @@ self.addEventListener('install', event => {
 });
 
 self.addEventListener('fetch', event => {
-  console.log('Fetching', event.request);
-
+  // console.log('Fetching', event.request);
   event.respondWith(
     caches.match(event.request)
       .then(response => {
@@ -19,12 +18,6 @@ self.addEventListener('fetch', event => {
         }
         console.log('Network request for ', event.request.url);
         return fetch(event.request);
-      })
-      .catch(error => {
-        const url = new URL(event.request.url);
-        if (url.pathname === '/') {
-          return caches.match('/index.html');
-        }
       })
       .catch(error => caches.match('/404.html'))
   )

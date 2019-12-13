@@ -25,7 +25,7 @@
       <h2>Welcome</h2>
       <h1>Register your Agoric installation</h1>
       <p>The local <a href="https://agoric.com/">Agoric platform</a> is accessible at:</p>
-        <form onsubmit="save(localAgoric.value)">
+        <form onsubmit="return save(localAgoric.value)">
           <input id="localAgoric" type="text" size="40" placeholder="Enter URL here" />
           <input type="submit" value="Save" />
           <button onclick="location.href = localStorage.getItem('localAgoric'); return false">Open</button>
