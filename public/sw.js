@@ -1,4 +1,4 @@
-const filesToCache = ['index.html', '404.html'];
+const filesToCache = ['index.html', '404.html', 'favicon-full.ico'];
 const staticCacheName = 'local-cache-v1';
 self.addEventListener('install', event => {
   console.log('Installing service worker and adding files to cache');

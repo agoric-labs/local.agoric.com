@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Register your Agoric Installation</title>
+    <link rel="shortcut icon" href="favicon-full.ico" type="image/x-icon">
 
     <style media="screen">
       body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
@@ -26,7 +27,7 @@
       <h1>Register your Agoric installation</h1>
       <p>This page informs your web browser where your local Agoric platform has been installed so that
         untrusted apps can rendezvous with your trusted services.</p>
-        <form onsubmit="localStorage.setItem('localAgoric', localAgoric.value); alert('Saved ' + localAgoric.value); return false">
+        <form onsubmit="save(localAgoric.value)">
           <input id="localAgoric" type="text" size="40" placeholder="Enter URL here" />
           <input type="submit" value="Save" />
           <button onclick="location.href = localStorage.getItem('localAgoric'); return false">Open</button>
@@ -34,6 +35,11 @@
       <p>It uses a Service Worker so that it functions even when your device is offline.</p>
     </div>
   <script type="text/javascript">
+    function save(value) {
+      localStorage.setItem('localAgoric', value);
+      setTimeout(() => alert('Saved ' + localAgoric.value), 1);
+      return false;
+    }
     localAgoric.value = localStorage.getItem('localAgoric') || 'http://localhost:8000';
     window.postMessage(localAgoric.value, '*');
 
