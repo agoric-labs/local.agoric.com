@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Some test</title>
+  </head>
+
+  <body>
+    <p>Look at the console.</p>
+    <iframe id="tester" style="display: none" width="0" height="0"></iframe>
+    <script type="text/javascript">
+      window.addEventListener('message', ev => {
+        console.log(ev);
+        if (ev.origin === 'https://local.agoric.com') {
+          console.log('BINGO!', ev.data);
+        }
+      });
+      tester.src = 'https://local.agoric.com/';
+      // tester.src = 'public/index.html';
+    </script>
+  </body>
+</html>
