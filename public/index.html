@@ -40,10 +40,23 @@
       return false;
     }
 
+    function makeQueryMap(search) {
+      const du = decodeURIComponent;
+      const splits = window.location.search.substr(1).split(/&/);
+      const map = new Map(splits.map(split => {
+        const match = split.match(/^(([^=]*)=)?(.*)/);
+        return match[1] ? [du(match[2]), du(match[3])] : [du(match[3]), undefined];
+      }));
+      return map;
+    }
+
     // Load the config value and reflect to our parent.
     localAgoric.value = localStorage.getItem('localAgoric') || 'http://localhost:8000';
     if (window.top) {
-      window.top.postMessage(localAgoric.value, '*');
+      // Append the "append=" query value.
+      const map = makeQueryMap(window.location.search);
+      const append = map.get('append') || '';
+      window.top.postMessage(`${localAgoric.value}${append}`, '*');
     }
 
     if ('serviceWorker' in navigator) {
