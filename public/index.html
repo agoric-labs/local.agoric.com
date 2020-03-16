@@ -52,11 +52,11 @@
 
     // Load the config value and reflect to our parent.
     localAgoric.value = localStorage.getItem('localAgoric') || 'http://localhost:8000';
-    if (window.top) {
+    if (window.parent !== window) {
       // Append the "append=" query value.
       const map = makeQueryMap(window.location.search);
       const append = map.get('append') || '';
-      window.top.postMessage(`${localAgoric.value}${append}`, '*');
+      window.parent.postMessage(`${localAgoric.value}${append}`, '*');
     }
 
     if ('serviceWorker' in navigator) {
