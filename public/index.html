@@ -51,7 +51,16 @@
     }
 
     // Load the config value and reflect to our parent.
-    localAgoric.value = localStorage.getItem('localAgoric') || 'http://localhost:8000';
+    let ls;
+    try {
+      ls = localStorage.getItem('localAgoric');
+    } catch (e) {
+      console.error('cannot load localStorage', e);
+    }
+    if (!ls) {
+      ls = 'http://localhost:8000';
+    }
+    localAgoric.value = ls;
     if (window.parent !== window) {
       // Append the "append=" query value.
       const map = makeQueryMap(window.location.search);
